@@ -1,3 +1,7 @@
+/tmp
+/.tm_properties
+/local
+
 # Logs
 logs
 *.log
