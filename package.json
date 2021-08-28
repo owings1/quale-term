@@ -1,0 +1,60 @@
+{
+  "name": "@quale/term",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "description": "terminal, colors, drawing, ansi, logging",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=text-summary mocha test/specs/** && nyc report --reporter=lcov",
+    "clean": "npm run cl && rm -rf node_modules",
+    "cl": "rm -rf .nyc_output coverage",
+    "co": "open coverage/lcov-report/index.html",
+    "preversion": "npm run clean && npm i && npm t",
+    "version": "echo no version script to run",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owings1/quale-term.git"
+  },
+  "keywords": [
+    "ansi",
+    "chalk",
+    "logging",
+    "terminal"
+  ],
+  "author": "Doug Owings <doug@dougowings.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/owings1/quale-term/issues"
+  },
+  "files": [
+    "src",
+    "index.js",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "homepage": "https://github.com/owings1/quale-term#readme",
+  "dependencies": {
+    "@quale/core": "^0.1.1",
+    "chalk": "^4.1.2",
+    "chalk-pipe": "^4.0.0",
+    "deepmerge": "^4.2.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "nyc": "^15.1.0"
+  },
+  "mocha": {
+    "extension": [
+      "test.js"
+    ],
+    "file": [
+      "test/helpers/setup.js"
+    ]
+  }
+}
