@@ -1,1 +1,1 @@
-# quale-term
+# @quale/term
