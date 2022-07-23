@@ -1,7 +1,4 @@
-const {Assertion} = require('chai')
-const idx = require('../../index.js')
-// ensure all index exports are loaded
-Object.values(idx)
+import {Assertion} from 'chai'
 // see https://www.chaijs.com/guide/helpers/ 
 Assertion.addMethod('erri', function (type) {
     const obj = this._obj

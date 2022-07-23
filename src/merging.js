@@ -1,29 +1,17 @@
-const deepmerge = require('deepmerge')
-const {types: {isPlainObject, isObject}} = require('@quale/core')
+import deepmerge from 'deepmerge'
+import {types} from '@quale/core'
+const {isObject, isPlainObject} = types
 
-const merging = {
-    plain: function mergePlain(...args) {
-        return deepmerge.all(args.filter(isPlainObject), {
-            isMergeableObject: isPlainObject,
-        })
-    },
-    spread: function spreadMerge(...args) {
-        return Object.fromEntries(
-            args.filter(isObject).map(Object.entries).flat()
-        )
-    },
-    get merge() {
-        return merging.plain
-    },
+export function mergePlain(...args) {
+    return deepmerge.all(args.filter(isPlainObject), {
+        isMergeableObject: isPlainObject,
+    })
 }
 
-module.exports = {
-    ...merging,
-    ...namedf(merging),
-}
-
-function namedf(obj) {
+export function spreadMerge(...args) {
     return Object.fromEntries(
-        Object.values(obj).map(f => [f.name, f])
+        args.filter(isObject).map(Object.entries).flat()
     )
 }
+
+export {mergePlain as merge, spreadMerge as spread}

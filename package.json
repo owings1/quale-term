@@ -1,11 +1,17 @@
 {
   "name": "@quale/term",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "engines": {
     "node": ">=12.0.0"
   },
   "description": "terminal, colors, drawing, ansi, logging",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./logger.js": "./src/classes/logger.js",
+    "./*.js": "./src/*.js"
+  },
+  "type": "module",
   "scripts": {
     "test": "nyc --reporter=text-summary mocha test/specs/** && nyc report --reporter=lcov",
     "clean": "npm run cl && rm -rf node_modules",
@@ -39,9 +45,9 @@
   ],
   "homepage": "https://github.com/owings1/quale-term#readme",
   "dependencies": {
-    "@quale/core": "^0.1.1",
-    "chalk": "^4.1.2",
-    "chalk-pipe": "^4.0.0",
+    "@quale/core": "^1.0.0",
+    "chalk": "^5.0.1",
+    "chalk-pipe": "^5.1.1",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {

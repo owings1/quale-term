@@ -23,26 +23,31 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /* Dependencies */
-const chalkPipe = require('chalk-pipe')
-const {
-    HashProxy,
-    errors  : {parseStack},
-    objects : {isEmptyObject, lget, lset, revalue},
-    strings : {cat},
-    types   : {
-        castToArray,
-        isError,
-        isFunction,
-        isPlainObject,
-        isString,
-        isWriteableStream,
-    },
-} = require('@quale/core')
-/* Node */
-const util = {format, formatWithOptions} = require('util')
-/* Package */
-const {merge, spread} = require('../merging.js')
-const {Chalk, DefaultColorLevel} = require('../colors.js')
+import {Chalk, DefaultColorLevel} from '../colors.js'
+import chalkPipe from 'chalk-pipe'
+import {HashProxy, errors, objects, strings, types} from '@quale/core'
+import {
+    castToArray,
+    isError,
+    isFunction,
+    isPlainObject,
+    isString,
+    isWriteableStream,
+} from '@quale/core/types.js'
+const {parseStack} = errors
+const {lget, revalue} = objects
+const {cat} = strings
+// const {
+//     castToArray,
+//     isError,
+//     isFunction,
+//     isPlainObject,
+//     isString,
+//     isWriteableStream,
+// } = types
+import {formatWithOptions} from 'util'
+import {merge, spread} from '../merging.js'
+
 
 const Caret = '\u276f'
 const SymHp = Symbol('hp')
@@ -205,10 +210,10 @@ Defaults.format = function (level, args) {
     args = preformat.call(this, level, args)
     const {colors} = this.opts
     const opts = spread({colors}, this.opts.inspect)
-    return util.formatWithOptions(opts, ...args)
+    return formatWithOptions(opts, ...args)
 }
 
-const Logger = module.exports = class {
+export default class Logger {
 
     /**
      * @constructor

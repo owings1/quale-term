@@ -1,5 +1,5 @@
 
-function getError(cb) {
+export function ger(cb) {
     let ret
     try {
         ret = cb()
@@ -19,13 +19,9 @@ function getError(cb) {
     }
 }
 
-class TestError extends Error {
+export class TestError extends Error {
     constructor(...args) {
         super(...args)
         this.name = this.constructor.name
     }
 }
-
-class GetErrorError extends TestError {}
-
-module.exports = {ger: getError, TestError}

@@ -22,11 +22,13 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-const {expect} = require('chai')
-const {strings: {stripAnsi}} = require('@quale/core')
-const {ger, MockOutput} = require('../helpers/index.js')
-const {Logger, merging: {merge}} = require('../../index.js')
+import {expect} from 'chai'
+import {strings} from '@quale/core'
+import {ger, MockOutput} from '../helpers/index.js'
+import {Logger, merging} from '../../index.js'
+const {merge} = merging
 
+const {stripAnsi} = strings
 describe('Logger', () => {
 
     beforeEach(function () {
