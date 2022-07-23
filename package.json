@@ -1,15 +1,15 @@
 {
   "name": "@quale/term",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "node": ">=12.0.0"
   },
   "description": "terminal, colors, drawing, ansi, logging",
-  "main": "index.js",
   "exports": {
     ".": "./index.js",
     "./logger.js": "./src/classes/logger.js",
-    "./*.js": "./src/*.js"
+    "./merging.js": "./src/merging.js",
+    "./colors.js": "./src/colors.js"
   },
   "type": "module",
   "scripts": {
