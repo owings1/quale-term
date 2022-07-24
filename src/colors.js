@@ -3,13 +3,14 @@ import {Chalk} from 'chalk'
 const chalk = new Chalk
 
 const proto = Object.getPrototypeOf(chalk)
+const proto2 = Object.getPrototypeOf(chalk.red)
 if (!proto.keyword) {
-    proto.keyword = function(kw, ...args) {
+    proto.keyword = proto2.keyword = function(kw, ...args) {
         return this.hex(keywords[kw], ...args)
     }
 }
 if (!proto.bgKeyword) {
-    proto.bgKeyword = function(kw, ...args) {
+    proto.bgKeyword = proto2.bgKeyword = function(kw, ...args) {
         return this.bgHex(keywords[kw], ...args)
     }
 }
