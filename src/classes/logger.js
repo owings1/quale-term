@@ -25,7 +25,6 @@
 /* Dependencies */
 import {Chalk, DefaultColorLevel} from '../colors.js'
 import chalkPipe from 'chalk-pipe'
-import {HashProxy, errors, objects, strings, types} from '@quale/core'
 import {
     castToArray,
     isError,
@@ -34,19 +33,14 @@ import {
     isString,
     isWriteableStream,
 } from '@quale/core/types.js'
-const {parseStack} = errors
-const {lget, revalue} = objects
-const {cat} = strings
-// const {
-//     castToArray,
-//     isError,
-//     isFunction,
-//     isPlainObject,
-//     isString,
-//     isWriteableStream,
-// } = types
+import {lget, revalue} from '@quale/core/objects.js'
+import {parseStack} from '@quale/core/errors.js'
+import HashProxy from '@quale/core/hash-proxy.js'
+import {cat} from '@quale/core/strings.js'
+
 import {formatWithOptions} from 'util'
 import {merge, spread} from '../merging.js'
+import process from 'process'
 
 
 const Caret = '\u276f'
@@ -82,8 +76,6 @@ Defaults.oneout = false
  * The default log level. If the `DEBUG` environment variable is set, then the
  * default is debug (4). Then the environment variables `LOG_LEVEL` and `LOGLEVEL`
  * are checked. Otherwise the default is info (2).
- *
- * {integer}
  */
 if (process.env.DEBUG) {
     Defaults.logLevel = 'debug'
@@ -94,6 +86,7 @@ if (process.env.DEBUG) {
 } else {
     Defaults.logLevel = 'info'
 }
+/** @type {Number} */
 Defaults.logLevel = getLevelNumber(Defaults.logLevel)
 
 /**
@@ -182,8 +175,8 @@ Defaults.styles = {
 /**
  * Log prefix function.
  *
- * @param {string} The log level, error, warn, info, log, or debug.
- * @return {string|array} The formatted prefix message(s)
+ * @param {String} level The log level, error, warn, info, log, or debug.
+ * @return {String|String[]} The formatted prefix message(s)
  */
 Defaults.prefix = function (level) {
     const {chalks} = this
@@ -201,10 +194,10 @@ Defaults.prefix = function (level) {
  * Format arguments to a string. This is called for prefixing, logging,
  * and the general format() method.
  *
- * @param {string} The level. Calls to logger.format() will be 'info'. Calls to
+ * @param {String} level The level. Calls to logger.format() will be 'info'. Calls to
  *        logger.eformat() will be 'error'.
- * @param {array} The arguments of any type.
- * @return {string} The formatted message string.
+ * @param {Array} args The arguments of any type.
+ * @return {String} The formatted message string.
  */
 Defaults.format = function (level, args) {
     args = preformat.call(this, level, args)
@@ -216,9 +209,7 @@ Defaults.format = function (level, args) {
 export default class Logger {
 
     /**
-     * @constructor
-     * @throws {TypeError}
-     * @param {object} (optional) The options
+     * @param {object} opts The options
      */
     constructor(opts) {
         opts = merge(Defaults, opts)
@@ -334,9 +325,8 @@ export default class Logger {
 /**
  * The main logging function, bound to individual methods in the constructor.
  *
- * @param {string} The level, 'info', 'warn', etc.
- * @param {...*} The arguments
- * @return {undefined}
+ * @param {String} level The level, 'info', 'warn', etc.
+ * @param {...*} args The arguments
  */
 function log (level, ...args) {
     level = getLevelNumber(level)
@@ -358,8 +348,8 @@ function log (level, ...args) {
  * Construct the prefix.
  * @private
  *
- * @param {string} The level, 'info', 'warn', etc.
- * @return {string}
+ * @param {String} level The level, 'info', 'warn', etc.
+ * @return {String}
  */
 function getPrefix (level) {
     const {opts} = this
@@ -378,9 +368,9 @@ function getPrefix (level) {
  * Pre-process/filter arguments before they are formatted.
  * @private
  *
- * @param {string} The log level, error, warn, info, log, or debug.
- * @param {array} The arguments of any type.
- * @return {array} The processed/filtered arguments of any type.
+ * @param {String} level The log level, error, warn, info, log, or debug.
+ * @param {Array} args The arguments of any type.
+ * @return {Array} The processed/filtered arguments of any type.
  */
 function preformat (level, args) {
     const {chalks} = this
@@ -425,10 +415,10 @@ function preformat (level, args) {
  * Format a keyword.
  * @private
  *
- * @param {string}
- * @param {string}
- * @param {*}
- * @return {string}
+ * @param {String} level
+ * @param {String} key
+ * @param {*} value
+ * @return {String}
  */
 function formatKeyword (level, key, value) {
     const {chalks} = this
@@ -445,10 +435,10 @@ function formatKeyword (level, key, value) {
  * Format an error.
  * @private
  *
- * @param {string}
- * @param {Error}
- * @param {boolean} (optional)
- * @return {string}
+ * @param {String} level
+ * @param {Error} err
+ * @param {boolean} isThrowing
+ * @return {String}
  */
 function formatError (level, err, isThrowing = false) {
     const levelNum = getLevelNumber(level)
@@ -470,8 +460,8 @@ function formatError (level, err, isThrowing = false) {
 }
 
 /**
- * @param {string|integer}
- * @return {integer}
+ * @param {String|Number} value
+ * @return {Number}
  */
 function getLevelNumber (value) {
     if (isString(value)) {
@@ -490,16 +480,16 @@ function getLevelNumber (value) {
 }
 
 /**
- * @param {*}
- * @return {string}
+ * @param {*} value
+ * @return {String}
  */
 function getLevelName (value) {
     return LevelNames[getLevelNumber(value)]
 }
 
 /**
- * @param {boolean|string}
- * @return {integer}
+ * @param {Boolean|String} value
+ * @return {Number}
  */
 function getOptColorLevel (value) {
     if (value === 'force') {
@@ -510,9 +500,8 @@ function getOptColorLevel (value) {
 
 /**
  * @throws {TypeError}
- * @param {*}
- * @param {string}
- * @return {undefined}
+ * @param {*} arg
+ * @param {String} name
  */
 function checkWriteStream (arg, name) {
     if (!isWriteableStream(arg)) {

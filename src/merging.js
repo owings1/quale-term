@@ -1,6 +1,5 @@
 import deepmerge from 'deepmerge'
-import {types} from '@quale/core'
-const {isObject, isPlainObject} = types
+import {isObject, isPlainObject} from '@quale/core/types.js'
 
 export function mergePlain(...args) {
     return deepmerge.all(args.filter(isPlainObject), {
