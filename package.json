@@ -8,7 +8,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": "./src/index.js",
     "./logger.js": "./src/classes/logger.js",
     "./merging.js": "./src/merging.js",
     "./colors.js": "./src/colors.js"
@@ -41,7 +41,6 @@
   "files": [
     "dist",
     "src",
-    "index.js",
     "LICENSE",
     "NOTICE.md",
     "README.md"

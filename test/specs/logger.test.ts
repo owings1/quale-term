@@ -26,7 +26,7 @@
 import {expect} from 'chai'
 import {strings} from '@quale/core'
 import {ger, MockOutput} from '../helpers/index.js'
-import {Logger, merging} from '../../index.js'
+import {Logger, merging} from '../../src/index.js'
 const {merge} = merging
 
 const {stripAnsi} = strings
