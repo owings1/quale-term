@@ -1,4 +1,4 @@
-
+class GetErrorError extends Error {}
 export function ger(cb) {
     let ret
     try {

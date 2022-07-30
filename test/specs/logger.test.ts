@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @quale/term - Logger tests.
  *

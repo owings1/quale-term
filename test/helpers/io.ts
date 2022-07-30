@@ -1,3 +1,4 @@
+// @ts-nocheck
 import stream from 'stream'
 import {strings} from '@quale/core'
 const {stripAnsi} = strings

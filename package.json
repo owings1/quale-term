@@ -1,10 +1,12 @@
 {
   "name": "@quale/term",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "engines": {
     "node": ">=12.0.0"
   },
   "description": "terminal, colors, drawing, ansi, logging",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": "./index.js",
     "./logger.js": "./src/classes/logger.js",
@@ -13,10 +15,10 @@
   },
   "type": "module",
   "scripts": {
-    "test": "nyc --reporter=text-summary mocha test/specs/** && nyc report --reporter=lcov",
+    "compile": "tsc",
+    "test": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' mocha",
     "clean": "npm run cl && rm -rf node_modules",
-    "cl": "rm -rf .nyc_output coverage",
-    "co": "open coverage/lcov-report/index.html",
+    "prepublish": "tsc",
     "preversion": "npm run clean && npm i && npm t",
     "version": "echo no version script to run",
     "postversion": "git push && git push --tags"
@@ -37,30 +39,28 @@
     "url": "https://github.com/owings1/quale-term/issues"
   },
   "files": [
+    "dist",
     "src",
-    "index.js",
     "LICENSE",
     "NOTICE.md",
     "README.md"
   ],
   "homepage": "https://github.com/owings1/quale-term#readme",
   "dependencies": {
-    "@quale/core": "^1.1.0",
+    "@quale/core": "^1.2.0",
     "chalk": "^5.0.1",
     "chalk-pipe": "^5.1.1",
     "deepmerge": "^4.2.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.6.2",
     "chai": "^4.3.4",
-    "mocha": "^9.0.3",
-    "nyc": "^15.1.0"
-  },
-  "mocha": {
-    "extension": [
-      "test.js"
-    ],
-    "file": [
-      "test/helpers/setup.js"
-    ]
+    "mocha": "^10.0.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
   }
 }

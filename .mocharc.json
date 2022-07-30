@@ -1,0 +1,9 @@
+{
+    "extension": [
+        "ts", "js"
+    ],
+    "spec": "test/specs/**",
+    "file": [
+        "test/helpers/setup.js"
+    ]
+}

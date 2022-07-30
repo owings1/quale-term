@@ -1,13 +1,14 @@
 import deepmerge from 'deepmerge'
-import {isObject, isPlainObject} from '@quale/core/types.js'
+import {objects} from '@quale/core'
+const {isObject, isPlainObject} = objects
 
-export function mergePlain(...args) {
+export function mergePlain(...args: any[]) {
     return deepmerge.all(args.filter(isPlainObject), {
         isMergeableObject: isPlainObject,
     })
 }
 
-export function spreadMerge(...args) {
+export function spreadMerge(...args: any[]) {
     return Object.fromEntries(
         args.filter(isObject).map(Object.entries).flat()
     )

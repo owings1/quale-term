@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @quale/util - merging tests
  *

@@ -4,7 +4,6 @@
 # TS -incremental file
 tsconfig.tsbuildinfo
 /.vscode
-/dist
 
 # Logs
 logs
